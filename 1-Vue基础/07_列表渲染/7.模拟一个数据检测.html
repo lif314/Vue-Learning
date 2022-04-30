@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟数据检测</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+   <script>
+       let data ={
+           name: "llf",
+           age: 18
+       }
+
+       // 创建一个监视的对象，用于监视data中属性的变化
+       const obs = new Observer(data);
+       console.log(obs)
+       // 准备一个vm实例对象
+       let vm = {}
+       vm._data = data = obs
+       function Observer(obj){
+            // 1.汇总对象中所有的属性形成一个数组
+            const keys =  Object.keys(obj)
+        
+            // 2.遍历
+            keys.forEach((k)=>{
+                // this就是指Observer
+                Object.defineProperty(this,k, {
+                    get(){
+                        return obj[k]
+                    },
+                    set(val){
+                        obj[k] = val
+                    }
+
+                })
+            })
+       }
+
+    //    Object.defineProperty(data, 'name', {
+    //        get(){
+    //            // 递归读取data.name
+    //            return data.name
+    //        },
+    //        set(val){
+    //            // 循环设置
+    //         data.name = val
+    //        }
+    //    })
+
+    //    setInterval(()=>{
+    //        if(data.name != 'llf'){
+    //            console.log("name改变了")
+    //        }
+    //        if(data.age != 18){
+    //            console.log("age改变了")
+    //        }
+    //    }, 100)
+   </script>
+</body>
+</html>

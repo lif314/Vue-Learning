@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.vue检测数据改变的原理</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <h2>Vue检测对象数据改变</h2>
+        <label>
+            <h3>name: {{name}}</h3>
+            <h3>age: {{age}}</h3>
+        </label>
+        <hr/>
+        <h2>人员列表</h2>
+        <button @click="updateMei">更新马冬梅的信息</button>
+        <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="p in persons" :key="p.id">
+                    {{p.name}} - {{p.age}} - {{p.sex}}
+                </li>
+            </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        // 使用计算属性
+       const vm = new Vue({
+            el: "#root",
+            data:{
+                name: 'llf',
+                age: 12,
+                sortType: 0, // 0 原顺序， 1 降序  2升序
+                keyWord: '',
+                persons:[
+                    {id: '001', name: '马冬梅', age:19, sex: "女"},
+                    {id: '002', name: '周冬雨', age:12, sex: "女"},
+                    {id: '003', name: '周杰伦', age:23, sex: "男"},
+                    {id: '004', name: '李杰伦', age:21, sex: "男"}
+                ]
+            }, 
+            methods: {
+                updateMei(){
+                    // this.persons[0].name = '马拉市' // 更新成功
+                    // 改变失败  Vue没有检测到更新
+                    this.persons[0] =  {id: '001', name: '马拉市', age:19, sex: "女"}
+                }
+            },
+    })
+    </script>
+</body>
+</html>

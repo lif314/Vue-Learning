@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘事件</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>{{name}}</h2>
+        <input type="text" placeholder="按回车键提示输入" @keyup="showInfo">
+        <!-- 给键盘事件起了别名
+            绑定事件的按键
+        enter
+        delete
+        esc
+        space
+        tab  (必须配合@keydown使用， 以及ctrl alt shift meta[系统修饰键])
+        up
+        down
+        top 
+        left
+        right
+        没有使用的使用编码  enter-- 13  @keyup.13
+
+        系统修饰键连接写标识组合键 @keyup.ctrl.y
+        -->
+        <input type="text" placeholder="按回车键提示输入" @keyup.enter="showInfoEnter">
+    </div>
+
+    <script>
+        Vue.config.productTip = false;
+
+        new Vue({
+            el: "#root",
+            data: {
+                name: "llf"
+            },
+            methods: {
+                showInfo(e){
+                    console.log(e.key,e.keyCode)
+                },
+                showInfoEnter(e){
+                    console.log(e.key,e.keyCode)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

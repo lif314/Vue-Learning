@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue监测数据总结</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <h1>学生信息</h1>
+        <button @click="student.age++">年龄+1</button>
+        <button @click="addSex">添加性别属性，默认：男</button>
+        <button @click="addFriend">在列表首位添加一个朋友</button>
+        <button @click="updateFirstFriendName">修改第一个朋友的名字：张三</button>
+        <button @click="addHobby">添加一个爱好</button>
+        <button @click="updateFirstHobby">修改第一个爱好：开车</button>
+        <button @click="removeSmoke">过滤到爱好中的抽烟</button>
+
+        <h3>姓名： {{student.name}}</h3>
+        <h3>年龄： {{student.age}}</h3>
+        <h3 v-show="student.sex">性别： {{student.sex}}</h3>
+        <h3>爱好：</h3>
+        <ul>
+            <li v-for="h,index in student.hobby" :key="index">{{h}}</Li>
+        </ul>
+
+        <h3>朋友：</h3>
+        <ul>
+            <li v-for="f,index in student.friends" :key="index">
+                {{f.name}}-{{f.age}}
+            </Li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+       const vm = new Vue({
+            el: "#root",
+            data:{
+              student: {
+                  name: 'llf',
+                  age: 12,
+                  hobby:['games', '抽烟', 'sleep'],
+                  friends:[
+                      {
+                          name: 'jerry',
+                          age: 13
+                      },
+                      {
+                          name: 'jack',
+                          age: 14
+                      }
+                    ]
+              }
+            },
+            methods: {
+                addSex(){
+                    this.$set(this.student, 'sex', '男')
+                    // Vue.set(this.student, 'sex', '男')
+                },
+                addFriend(){
+                    // 7个api
+                    this.student.friends.unshift({
+                          name: 'new friends',
+                          age: 19
+                      })
+                },
+                updateFirstFriendName(){
+                    // 修改对象的属性
+                    this.student.friends[0].name = '张三'
+                    // name有get,set，而friends[0]没有
+                },
+                addHobby(){
+                    this.student.hobby.push("新加的爱好")
+                },
+                updateFirstHobby(){
+                    // 不能使用this.student.hobby[0] = '开车'
+                    //this.student.hobby.splice(0,1,'修改第一个爱好：开车')
+                    this.$set(this.student.hobby, 0, '开车')
+                },
+                removeSmoke(){
+                    //没有默认响应，则替换原来的数组
+                    this.student.hobby = this.student.hobby.filter((hobby)=>{
+                        return hobby.indexOf('抽烟') == -1
+                    })
+                }
+            },
+
+    })
+    </script>
+</body>
+</html>

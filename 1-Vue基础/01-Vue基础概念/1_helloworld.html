@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入Vue -->
+    <script src="./js/vue.js"></script>
+
+    <title>初识vue</title>
+</head>
+
+<body>
+    <!--准备一个容器 -->
+    <div id="root">
+        <!-- 插入语法 -->
+        <h1>插值语法</h1>
+        <h3>Hello {{name}}, {{Date.now()}}</h3>
+        <hr/>
+        <h1>指令语法</h1>
+        <!-- v-bind可以简写为: ， 加了就会当作表达式执行-->
+        <a v-bind:href="url">尚硅谷</a>
+    </div>
+    <!-- 
+        1、插值语法使用标签体内容
+        2、指令语法用于解析标签
+            - 标签属性
+            - 标签体内容
+            - 绑定事件
+     -->
+    <script>
+        // 1、Vue实例与容器一一对应
+        // 2、{{}}可以写js表达式，有声明或者可以直接求值
+        Vue.config.productionTip = false; // 阻止vue在生产环境下的提示
+        // 创建vue实例  -- Vue模板
+        new Vue({
+            el: '#root', // el用于指定当前vue实例为那个容器服务值为css选择器字符春串
+            // 把变化的数据交给vue实例进行管理
+            data: {
+                name: '李林飞',
+                url: 'http://www.atguigu.com'
+            }
+        })
+    </script>
+</body>
+
+</html>

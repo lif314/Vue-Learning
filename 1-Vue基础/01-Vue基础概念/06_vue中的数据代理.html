@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue中的数据代理</title>
+
+       <!-- 引入Vue -->
+       <script src="./js/vue.js"></script>
+</head>
+<body>
+    
+<div id="root">
+    <h1>名称： {{name}}</h1>
+    <h1>地址： {{address}}</h1>
+</div>
+
+<script>
+ Vue.config.productionTip = false; // 阻止vue在生产环境下的提示
+        // 创建vue实例  -- Vue模板
+        const vm = new Vue({
+            el: '#root', // el用于指定当前vue实例为那个容器服务值为css选择器字符春串
+            // 把变化的数据交给vue实例进行管理
+            data: {
+                name: '李林飞',
+                address: '上海'
+            }
+        })
+        // 数据代理 vm与dat之间进行数据代理
+        // vm_data.name(数据劫持) --- vm.name ---  data.name
+        // vm_data.address(数据劫持) ---- vm.address --- data.address
+</script>
+
+</body>
+</html>

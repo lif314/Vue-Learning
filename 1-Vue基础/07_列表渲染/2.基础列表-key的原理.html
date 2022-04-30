@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定样式</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <h2>人员列表</h2>
+            <button @click.once="add">在列表前面添加一行</button>
+            <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="p in persons" :key="p.id">
+                    {{p.name}} - {{p.age}} ---{{p.id}}
+                    <input type="text">
+                </li>
+            </ul>
+
+            <hr/>
+               <!--
+                    存在的问题： 
+                        1、效率低
+                        2、复用错位
+                最好使用唯一id作为标识
+               -->
+            <!-- 
+                - 使用index作为key，当输入值时，会导致输入的内容错位
+                - 虚拟DOM的对比算法(Diff): key重新编排，通过diff对比后复用原来的真实DOM。
+                        基于key，所以复用错位
+            -->
+            <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="(p, index) in persons" :key="index">
+                    {{p.name}} - {{p.age}} ---{{index}}
+                    <input type="text">
+                </li>
+            </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                persons:[
+                    {id: '001', name: 'llf', age:17},
+                    {id: '002', name: 'llf', age:18},
+                    {id: '003', name: 'llf', age:19}
+                ],
+            },
+            methods:{
+                add(){
+                    const p = {id: '004', name: 'llf', age:20}
+                    // 向前添加
+                    this.persons.unshift(p)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

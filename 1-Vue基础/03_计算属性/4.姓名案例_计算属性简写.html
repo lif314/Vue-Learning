@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例-计算属性</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>欢迎: {{name}}</h2>
+        姓： <input type="text" v-model:value="firstName">
+        <br/>
+        名：  <input type="text" v-model:value="lastName">
+        <br/>
+        <!-- 计算属性不要使用 fullName.get()使用，它会加载到vm上 -->
+        姓名：<span>{{fullName}}</span>
+    </div>
+
+    <script>
+        Vue.config.productTip = false;
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name: 'llf',
+                firstName: '张',
+                lastName: '三'
+            }, 
+            computed: {
+                // 完整代码
+                // fullName: {
+                //     get(){
+                //         console.log("get被调用了")
+                //         // this就是vm
+                //         return this.firstName + "-" + this.lastName;
+                //     },
+                //     // fullName被修改时才调用set
+                //     set(value){
+                //         console.log('set', value)
+                //         // 张-三
+                //         const arr = value.split('-');
+                //         this.firstName  
+                //         = arr[0]
+                //         this.lastName = arr[1]
+                //     }
+                // }
+
+                // 简写：只读不该才能使用
+                    fullName(){ // 相当于get
+                        return this.firstName + '-' + this.lastName;
+                    }
+            }
+        })
+    </script>
+
+</body>
+</html>

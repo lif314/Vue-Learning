@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件的基本使用</title>
+    <script src="../js/vue.js"> </script>
+</head>
+<body>
+    <div id="root">
+        <h2>事件处理: {{name}}</h2>
+        <!-- 传入参数和event -->
+        <button @click="showInfo(66, $event)">点我提示信息</button>
+        <!-- v-on简写为@ --> 
+        <!-- <button v-on:click="showInfo">点我提示信息</button> -->
+
+    </div>
+
+    <script>
+        Vue.config.productTip = false;
+
+        new Vue({
+            el: "#root",
+            data: {
+                name: 'llf'
+            },
+            methods:{
+                showInfo(number, event){
+                    console.log(event)
+                    alert("v-on事件绑定" + number)
+                    // 此时this为vm
+                    // console.log(this);
+                }
+
+                // showInfo:(event)=>{
+                //     alert("v-on事件绑定")
+                //     // 此时this为window
+                //     // console.log(this);
+                // }
+            }
+        })
+    </script>
+</body>
+</html>

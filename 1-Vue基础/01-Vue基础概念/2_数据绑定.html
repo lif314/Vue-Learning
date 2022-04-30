@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- v-bind 单向绑定 data--viewport-->
+        <!-- v-model v-model=‘’ 默认搜集value值双向绑定 只能用于表单类元素，即输入类 input select-->
+        单向数据绑定：
+        <input type="text" v-bind:value="name">
+        <br/> 双向数据绑定: <input type="text" v-model:value="name">
+
+    </div>
+    <script type="text/javascript">
+        Vue.config.productTip = false;
+        const v = new Vue({
+                // el: '#root',
+                // data: { // 对象式
+                //     name: 'llf'
+                // }
+                data: function() { // 函数式
+                    return {
+                        name: 'llf'
+                    }
+                }
+            })
+            //el的两种写法
+        v.$mount("#root")
+            // data的两种写法
+            // 函数式
+    </script>
+</body>
+
+</html>
+
+</html>

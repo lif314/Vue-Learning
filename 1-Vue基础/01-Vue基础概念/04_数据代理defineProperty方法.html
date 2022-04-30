@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据代理</title>
+</head>
+
+<body>
+    <!-- 数据劫持 -->
+    <!-- ES6：Object.defineProperty-->
+    <script>
+        let person = {
+            name: "llf",
+            age: 12,
+            sex: "M"
+        }
+        let number = 19
+        // 参数：对象 属性 配置
+        Object.defineProperty(person, 'age',{
+            // value: number,
+            // enumerable: true,  // 可遍历
+            // writable: true,  // 可修改
+            // configurable: true // 可被删除
+
+            // 当有人读取person的age属性，调用get函数
+            get(){
+                return number;
+            },
+            set(){
+                console.log("修改number的值")
+                number = value
+            }
+        })
+
+        // 提取对象的属性为数组
+        // console.log(Object.keys(person))
+
+        console.log(person)
+    </script>
+</body>
+
+</html>

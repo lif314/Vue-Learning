@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例-Methods</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>欢迎: {{name}}</h2>
+        姓： <input type="text" v-model:value="firstName">
+        <br/>
+        名：  <input type="text" v-model:value="lastName">
+        <br/>
+        <!-- 模板中的表达式应该足够简单 -->
+        <!-- 插值表达式需要() -->
+        <!--效率比较低 -->
+        姓名：<span>{{fullName()}}</span>
+    </div>
+
+    <script>
+        Vue.config.productTip = false;
+
+        new Vue({
+            el: "#root",
+            data: {
+                name: 'llf',
+                firstName: '张',
+                lastName: '三'
+            }, 
+            methods: {
+                fullName(){
+                    // alert(firstName, lastName)
+                    // 必须要使用this 
+                    return this.firstName +  "-" + this.lastName;
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>

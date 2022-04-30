@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.set的使用</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <h2>Vue.set使用</h2>
+        <label>
+            <h3>学校名称: {{name}}</h3>
+            <h3>学校地址: {{address}}</h3>
+            <hr/>
+            <button @click="addSex">添加学生性别</button>
+            <h3>学生姓名： {{student.name}}</h3>
+            <h3 v-show="student.sex">学生性别： {{student.sex}}</h3>
+            <h3>学生年龄： {{student.age}}</h3>
+        </label>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        // 使用计算属性
+       const vm = new Vue({
+            el: "#root",
+            data:{
+                name: 'tj',
+                address: '上海',
+                student: {
+                    name: 'llf',
+                    //sex: 'M',  // 后添加 Vue.set(vm._data.student, 'sex', 'M')
+                    // vm.$set(vm.student, 'sex', 'M')
+                    age: 12
+                }
+            },
+            methods: {
+                addSex(){
+                    // 不能给data添加属性，即vm和vm的根属性上添加新的属性
+                    Vue.set(this.student, 'sex', 'M')
+                    // this.$set(this.student, 'sex', 'M')
+                }
+            },
+    })
+    </script>
+</body>
+</html>

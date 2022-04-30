@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <!-- 节点还在 -->
+        <h2 v-show="isShow"> {{name}}</h2>
+        <button @click="show">点击</button>
+        <hr/>
+        <!-- 清除节点 -->
+        <h2 v-if="isShow"> {{name}}</h2>
+        <h2 v-else-if="true">hahhaha {{name}}</h2>
+        <h2 v-else="true">hahhaha {{name}}</h2>
+        <!-- if else-if是一组判断, 不能被打断 -->
+        <button @click="show">点击</button>
+
+        <hr/>
+        <!-- template只能和v-if使用: 整体显示 -->
+        <template v-if="true">
+            <h2>你好</h2>
+            <h2>Hello</h2>
+            <h2>hasahsasl</h2>
+        </template>
+
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                name:'llf',
+                isShow: false
+            },
+            methods:{
+                show(){
+                    this.isShow = !this.isShow;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

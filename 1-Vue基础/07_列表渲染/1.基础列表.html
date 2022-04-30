@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定样式</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <h2>人员列表(遍历数组)：</h2>
+            <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="p in persons" :key="p.id">
+                    {{p.name}} - {{p.age}} ---{{p.id}}
+                </li>
+            </ul>
+            <hr/>
+            <ul>
+                <!--key 唯一标识-->
+                <li v-for="p,index in persons" :key="index">
+                    {{p.name}} - {{p.age}} ---{{index}}
+                </li>
+            </ul>
+            <hr/>
+            <h2>遍历对象</h2>
+            <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="(value,k) in cars" :key="k">
+                    {{k}} - {{value}}
+                </li>
+            </ul>
+
+            <hr/>
+            <h2>遍历字符串</h2>
+            <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="(value,k) in strs" :key="k">
+                    {{k}} - {{value}}
+                </li>
+            </ul>
+
+
+            <hr/>
+            <h2>遍历指定次数</h2>
+            <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="(value,k) in 5" :key="k">
+                    {{k}} - {{value}}
+                </li>
+            </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                persons:[
+                    {id: '001', name: 'llf', age:20},
+                    {id: '002', name: 'llf', age:20},
+                    {id: '003', name: 'llf', age:20}
+                ],
+                cars:{
+                    name: 'aaa',
+                    price: 2323.232,
+                    color: 'red'
+                },
+                strs: "hello wod"
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

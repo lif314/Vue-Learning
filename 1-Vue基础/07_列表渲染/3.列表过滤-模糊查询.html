@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表过滤-模糊查询</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="输入名字" v-model="keyWord">
+            <ul>
+                <!-- key 唯一标识-可以使用in或者of -->
+                <li v-for="p in filtersPersons" :key="p.id">
+                    {{p.name}} - {{p.age}} - {{p.sex}}
+                </li>
+            </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        // #region
+        // 使用watch进行模糊查询
+        // new Vue({
+        //     el: "#root",
+        //     data:{
+        //         keyWord: '',
+        //         persons:[
+        //             {id: '001', name: '马冬梅', age:19, sex: "女"},
+        //             {id: '002', name: '周冬雨', age:12, sex: "女"},
+        //             {id: '003', name: '周杰伦', age:23, sex: "男"},
+        //             {id: '004', name: '李杰伦', age:21, sex: "男"}
+        //         ],
+        //         filtersPersons:[]
+        //     },
+        //     // 最好使用计算属性获取
+        //     watch:{
+        //         keyWord: {
+        //             immediate: true,  // 未改变前就先调用一次
+        //             handler(val){
+        //                 // 不要直接修改原有数据 filter不改变原来的数组
+        //                 // 任何字符串中都有’‘， indexOf('')返回0
+        //                 this.filtersPersons = this.persons.filter((p)=>{
+        //                     return p.name.indexOf(val) !== -1
+        //                 })
+        //             }
+        //         }
+        //     }
+        // })
+        // #endregion
+
+        // 使用计算属性
+        new Vue({
+            el: "#root",
+            data:{
+                keyWord: '',
+                persons:[
+                    {id: '001', name: '马冬梅', age:19, sex: "女"},
+                    {id: '002', name: '周冬雨', age:12, sex: "女"},
+                    {id: '003', name: '周杰伦', age:23, sex: "男"},
+                    {id: '004', name: '李杰伦', age:21, sex: "男"}
+                ]
+            },
+            // 最好使用计算属性获取
+            computed:{
+                // 计算属性不能在data中定义
+                filtersPersons(){
+                    return this.persons.filter((p)=>{
+                       // console.log(this)
+                        return p.name.indexOf(this.keyWord) != -1
+                    })
+                }
+            }        
+    })
+    </script>
+</body>
+</html>
