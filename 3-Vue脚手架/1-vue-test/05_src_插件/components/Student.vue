@@ -1,6 +1,6 @@
 <template>
   <!-- 结构: 组件中必须有根目录 -->
-  <div class="test">
+  <div class="demo">
     <h1>{{msg}}</h1>
     <h2>名字: {{ name }}</h2>
     <h2>年龄: {{ age }}</h2>
@@ -30,7 +30,7 @@ export default {
 
 
 <style scoped>
-.test {
-  background-color: rgb(91, 114, 149);
+.demo {
+  background-color: aqua;
 }
 </style>
