@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueComponent</title>
+    <script src="../js/vue.js"></script>
+</head>
+<!-- 
+    1、组件的类型：就是一个构造函数VueComponent，是Vue.extend()生成的
+    2、只需要写<school>或者<school></school>，Vue解析时会创建school组件的实例对象
+          即：new VueCompoent(oprions)
+    3、每次调用Vue.extend，返回的都一个全新的VueComponent！！！！
+        类型一样，但实例不一样
+    4、关于this的指向：
+        - 组件配置中：this就是组件的实例对象 VueConponent   vc
+        - new Vue(options)配置中：vm
+ -->
+<body>
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <school></school>
+        <hello></hello>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+        
+        // 创建school组件
+        const school = Vue.extend({
+            // 子组件给谁，就在哪里引用
+            template: `
+            <div>
+                <h2>学校名称: {{schoolName}}</h2>
+                <h2>学校地址: {{address}}</h2>
+                <button @click='schoolname'>点我提示学校名</button>
+            </div>
+            `,
+            data() {
+                return {
+                    schoolName: "tj",
+                    address: "shanghai",
+                }
+            },
+            methods: {
+                schoolname() {
+                    // this就是组件的实例对象 VueComponent实例对象
+                    // vc与vm功能是一样的
+                    console.log("school组件的this: ", this)
+                    alert(this.schoolName)
+                }
+            }
+        })
+
+
+        const hello = Vue.extend({
+            template:`
+            <div>
+                <h1>{{msg}}</h1>    
+            </div>
+            `,
+            data(){
+                return {
+                    msg: 'Hello'
+                }
+            }
+        })
+        // 1、组件的类型：就是一个构造函数VueComponent，是Vue.extend()生成的
+        console.log("组件school:", school)
+        // 2、每次调用Vue.extend，返回的都一个全新的VueComponent
+        console.log("组件hello:", hello)
+        // ƒ VueComponent (options) {
+        // this._init(options);
+        // }
+
+       const vm = new Vue({
+            el: "#root",
+            components:{
+                school,
+                hello
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>

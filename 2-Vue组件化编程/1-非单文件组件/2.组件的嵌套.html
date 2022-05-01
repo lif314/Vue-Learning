@@ -12,15 +12,17 @@
 <!-- 
     school:父组件
     student: 子组件
+    - 子组件需要注册在父组件上，注意定义的顺序
  -->
 
 <body>
     <!-- 准备好一个容器 -->
     <div id="root">
         <h1>{{msg}}</h1>
-        <hr/>
+        <!-- <hello></hello> -->
+        <!-- <hr/> -->
         <!-- 3、使用组件 -->
-        <school></school>
+        <!-- <school></school> -->
         <!-- <hr/>
         <student></student> -->
     </div>
@@ -73,19 +75,44 @@
             }
         })
         
+        // hello组件
+        const hello = Vue.extend({
+            template:`
+            <div>
+                <h1>hello组件: {{msg}}</h1>
+            </div>
+            `,
+            data(){
+                return {
+                    msg: "Tom"
+                }
+            }
+        })
+
+        // App组件： 管理所有的组件
+        const app = Vue.extend({
+            template:`
+            <div>
+                <hello></hello>    
+                <school></school>
+            </div>
+            `,
+            components:{
+                hello,
+                school
+            }
+        })
+        
         // 创建vm
         new Vue({
+            template:`
+            <app></app>
+            `,
             el: "#root",
-            components: {
-                // 注册组件   局部注册
-                school: school,
-            },
+            components: {app},
             data: {
                 msg:"组件嵌套"
             },
-            methods: {
-
-            }
         })
     </script>
 </body>

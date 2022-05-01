@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件内置关系</title>
+    <script src="../js/vue.js"></script>
+</head>
+<!-- 
+VueComponent.prototype.__proto__ === Vue.prototype
+-- 让组件实例对象(vc)可以访问Vue原型上的属性、方法
+ -->
+<body>
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <school></school>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+
+        // 原型
+        // function Demo(){
+        //     this.a = 1
+        //     this.b = 23
+        // }
+
+        // const  d = new Demo()
+        // //两个是一样的
+        // console.log("demo原型显式属性：", Demo.prototype) // 显示原型属性
+        // console.log('隐式属性', d.__proto__)
+        // console.log('实例对象', d)
+        
+
+        // VueComponent.prototype.__proto__ === Vue.prototype
+        Vue.prototype.x = 100
+
+        // 创建school组件
+        const school = Vue.extend({
+            // 子组件给谁，就在哪里引用
+            template: `
+            <div>
+                <h2>学校名称: {{schoolName}}</h2>
+                <h2>学校地址: {{address}}</h2>
+                <button @click='schoolname'>点我提示学校名</button>
+                <button @click='showX'>显示x</button>
+            </div>
+            `,
+            data() {
+                return {
+                    schoolName: "tj",
+                    address: "shanghai",
+                }
+            },
+            methods: {
+                schoolname() {
+                    // this就是组件的实例对象 VueComponent实例对象
+                    // vc与vm功能是一样的
+                    console.log("school组件的this: ", this)
+                    alert(this.schoolName)
+                },
+                showX(){
+                    // 根据原型链可以找到Vue上的x
+                    alert(this.x)
+                }
+            }
+        })
+
+
+       const vm = new Vue({
+            el: "#root",
+            components:{
+                school
+            }
+        })
+        // true
+        // 实例对象具有隐式属性
+        // 实例的隐式属性指向缔造者的原型属性
+        console.dir(school)
+        console.log('vm:', vm)
+        console.log("内置关系：", school.prototype.__ptoro__ === vm.prototype)
+    </script>
+
+
+</body>
+
+</html>
