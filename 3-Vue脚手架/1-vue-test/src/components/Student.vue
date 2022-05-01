@@ -2,7 +2,7 @@
   <!-- 结构: 组件中必须有根目录 -->
   <div class="demo">
     <h1>{{msg}}</h1>
-    <h2 @click="showName">名字: {{ name }}</h2>
+    <h2>名字: {{ name }}</h2>
     <h2>年龄: {{ age }}</h2>
   </div>
 </template>
