@@ -1,10 +1,25 @@
 <template>
   <!-- 必须有根元素 -->
   <div>
+    <h1>{{ msg }}</h1>
     <!-- 组件使用多次： 数据不同 -->
-    <Student></Student>
-    <hr/>
-    <School/>
+
+    <!-- 
+  子给父传递数据：
+    - 父组件中需要绑定回调函数
+    - 
+ -->
+
+    <!-- v-on绑定自定义事件  ：子给父传递数据
+    this.$emit('eventnamr', data)  触发事件
+     -->
+    <Student v-on:selfevent="getStudentName" />
+    <hr />
+    <!-- 通过父组件给子组件传递函数类型的props实现：子给父传递数据 -->
+    <School :getSchoolName="getSchoolName" />
+    <!-- 通过实例对象获取 数据 -->
+    <Student ref="student" />
+    <!-- this.$refs.student -->
   </div>
 </template>
 
@@ -19,14 +34,34 @@ export default {
   // 注册组件
   components: {
     Student,
-    School
+    School,
+  },
+  mounted() {
+    // 在mouted中通过实例对象触发事件
+    console.log("使用ref触发事件");
+    console.log("使用ref获取数据-学生姓名", this.$refs.student.name);
+    // 灵活性很强
+    // $on(): 当什么的时候
+    setTimeout(() => {
+      this.$refs.student.$on("selfevent", this.getStudentName);
+      // 只触发一次
+      // this.$refs.student.$once("selfevent", this.getStudentName);
+    }, 3000);
   },
   data() {
     return {
-    
+      msg: "你好！",
     };
   },
   methods: {
+    getStudentName(name, ...params) {
+      // ...a 多余参数整理在数组a上
+      console.log("props传递函数-学生姓名：", name, params);
+    },
+    // 通过父组件给子组件传递函数类型的props实现：子给父传递数据
+    getSchoolName(name) {
+      console.log("自定义事件-的学校名字: ", name);
+    },
   },
 };
 </script>
@@ -48,7 +83,7 @@ export default {
 */
 /* 全局样式 */
 
-.title{
+.title {
   color: red;
 }
 </style>
