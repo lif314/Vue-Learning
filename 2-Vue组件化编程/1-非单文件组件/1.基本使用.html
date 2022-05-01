@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非单文件组件基本使用</title>
+    <script type="text/javascript" src="../js/vue.js"=></script>
+</head>
+
+<!-- 
+几个注意点
+    - 一个单词使用大学 School
+    - 多个单词： myschool  --  'my-school'   
+        MySchool-- 脚手架中才能使用
+    - 使用组件：
+        <school/>  自闭合 
+        <school></school>
+    - 简写方式：
+        - const school = Vue.extend()   const school = options
+    -->
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <!-- <h2>学校名称: {{schoolName}}</h2>
+        <h2>学校地址: {{address}}</h2> -->
+        <!-- 3、使用组件 -->
+        <xuexiao></xuexiao>
+        <hr />
+        <h2>姓名: {{name}}</h2>
+        <h2>年龄: {{age}}</h2>
+        <hr />
+        <hello></hello>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        // 创建school组件
+        const school = Vue.extend({
+            // name: 'School', //强制规定逐渐名字
+            template: `
+            <div>
+                <h2>学校名称: {{schoolName}}</h2>
+                <h2>学校地址: {{address}}</h2>
+                <button @click='schoolname'>点我提示学校名</button>
+            </div>
+            `,
+            // 配置项
+            // 创建vm
+            // el: "#root", // 组件还不知道自己为谁服务，所有不能使用el进行挂载，最终由vm管理
+            // data必须写成为一个函数式
+            data() {
+                return {
+                    schoolName: "tj",
+                    address: "shanghai",
+                }
+            },
+            methods: {
+                schoolname() {
+                    alert(this.schoolName)
+                }
+            }
+        })
+
+        // 创建student组件
+        const student = Vue.extend({
+            // 配置项
+            // 创建vm
+            // el: "#root", // 组件还不知道自己为谁服务，所有不能使用el进行挂载，最终由vm管理
+            // data必须写成为一个函数式
+            data() {
+                return {
+                    name: "llf",
+                    age: 19
+                }
+            },
+            methods: {
+            }
+        })
+
+        // 全局组件
+        const hello = Vue.extend({
+            template: `
+            <h2>Hello, {{name}}</h2>
+            `,
+            data() {
+                return {
+                    name: '全局组件'
+                }
+            }
+        })
+        //注册全局组件
+        Vue.component('hello', hello)
+
+        // 创建vm
+        new Vue({
+            el: "#root",
+            components: {
+                // 注册组件   局部注册
+                xuexiao: school,
+                student: student
+            },
+            data: {
+                schoolName: "tj",
+                address: "shanghai",
+                name: "llf",
+                age: 19
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

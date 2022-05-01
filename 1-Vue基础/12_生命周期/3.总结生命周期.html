@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>总结生命周期</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+
+<!-- 
+    生命周期：
+    4对 8个
+ -->
+
+<body>
+    <div id="root">
+        <h2 :style="{opacity}">生命周期渐变</h2>
+        <button @click="stopChange">点我停止变化</button>
+        <button @click="opacity = 1">透明度设置为1</button>
+        <button @click="stopvm">完全停止(自杀vm)</button>
+    </div>
+        
+    <script>
+        Vue.config.productionTip = false
+
+        const vm =  new Vue({
+            el: "#root",
+            data:{
+                opacity: 1,
+            },
+            methods:{
+                stopChange(){
+                    // 停止变换，清除定时器即可
+                    clearInterval(this.timer)
+                },
+                stopvm(){
+                    // 清除vm -- 自杀
+                    this.$destroy();
+                }
+            },
+            // 挂载完毕：把真实DOM放在页面，完成模板解析
+            mounted() {
+                // 箭头函数，向外找 this
+                // 在vm上追加了一个timer
+                this.timer = setInterval(() => {
+                this.opacity -= 0.01
+                if(this.opacity <= 0)
+                    this.opacity = 1
+                }, 16);
+            },
+            beforeDestroy() {
+                console.log('vm即将清除')
+                // 清除定时器  --- 善后工作
+                clearInterval(this.timer)
+            },
+        })
+    </script>
+</body>
+</html>

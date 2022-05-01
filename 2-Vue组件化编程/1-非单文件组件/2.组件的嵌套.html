@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件嵌套</title>
+    <script type="text/javascript" src="../js/vue.js"=></script>
+</head>
+
+<!-- 
+    school:父组件
+    student: 子组件
+ -->
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>{{msg}}</h1>
+        <hr/>
+        <!-- 3、使用组件 -->
+        <school></school>
+        <!-- <hr/>
+        <student></student> -->
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        
+        // 创建student组件
+        const student = Vue.extend({
+            template:`
+            <div>
+                <h2>姓名： {{name}}</h2>
+                <h2>年龄： {{age}}</h2>
+            </div>
+            `,
+            data() {
+                return {
+                    name: "llf",
+                    age: 19
+                }
+            },
+            methods: {
+            }
+        })
+        
+        // 创建school组件
+        const school = Vue.extend({
+            // 注册子组件
+            components:{
+                student:student
+            },
+            // 子组件给谁，就在哪里引用
+            template: `
+            <div>
+                <h2>学校名称: {{schoolName}}</h2>
+                <h2>学校地址: {{address}}</h2>
+                <student></student>
+                <button @click='schoolname'>点我提示学校名</button>
+            </div>
+            `,
+            data() {
+                return {
+                    schoolName: "tj",
+                    address: "shanghai",
+                }
+            },
+            methods: {
+                schoolname() {
+                    alert(this.schoolName)
+                }
+            }
+        })
+        
+        // 创建vm
+        new Vue({
+            el: "#root",
+            components: {
+                // 注册组件   局部注册
+                school: school,
+            },
+            data: {
+                msg:"组件嵌套"
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
