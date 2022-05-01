@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+
+    <script src="../js/vue.js"></script>
+    <script src="../js/dayjs.min.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>显示格式化后的事件格式</h2>
+        <!-- 计算属性实现 -->
+        <h3>当前时间： {{fmtTime}}</h3>
+         <!-- 方法实现 -->
+         <h3>当前时间： {{getFmtTime()}}</h3>
+          <!-- 过滤器实现 
+            - 管道符链接
+            - 多个可以串联
+            - 工作的结果作为下一个过滤器的默认输入
+        -->
+        <h3>当前时间： {{time | timeFormater()}}</h3>
+        <h3>当前时间： {{time | timeFormater('YYYY-MM-DD HH:mm:ss')}}</h3>
+        <h3>当前时间： {{time | timeFormater('YYYY-MM-DD HH:mm:ss') | timeSlice}}</h3>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                time: Date.now(),
+
+            },
+            methods: {
+                getFmtTime(){
+                    return dayjs(this.time).format("YYYY年MM月DD日 HH:mm:ss")
+                }
+            },
+            computed:{
+                fmtTime(){
+                    return dayjs(this.time).format("YYYY年MM月DD日 HH:mm:ss")
+                }
+            },
+            // 局部过滤器  就是一个函数
+            filters:{
+                timeFormater(value, str='YYYY年MM月DD日 HH:mm:ss'){
+                    return dayjs(value).format(str)
+                },
+                timeSlice(value){
+                    return value.slice(0,4)
+                }
+            }
+        })
+
+
+        // 全局过滤器  name, function
+        // 可以在{{}}中使用，以及v-bind中 :x='mam121 | myslice '
+        // Vue.filter('myslice', function(value){
+        //     return  value.slice(0,4)
+        // })
+        
+    </script>
+</body>
+</html>
