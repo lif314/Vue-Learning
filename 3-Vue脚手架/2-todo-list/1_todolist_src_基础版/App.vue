@@ -39,14 +39,13 @@ export default {
   // 将数据存给共同的父组件： APP
   data() {
     return {
-      todos: JSON.parse(localStorage.getItem('todos')) || []
-      // todos: [
-      //   { id: "001", title: "sleep", done: true },
-      //   { id: "002", title: "eat", done: false },
-      //   { id: "003", title: "music", done: true },
-      //   { id: "004", title: "sing", done: false },
-      //   { id: "005", title: "chat", done: false },
-      // ],
+      todos: [
+        { id: "001", title: "sleep", done: true },
+        { id: "002", title: "eat", done: false },
+        { id: "003", title: "music", done: true },
+        { id: "004", title: "sing", done: false },
+        { id: "005", title: "chat", done: false },
+      ],
     };
   },
   methods: {
@@ -87,21 +86,6 @@ export default {
       });
     },
   },
-  // 监视todos  webStorage
-  // watch:{
-  //   todos(value){
-  //       localStorage.setItem('todos', JSON.stringify(value))
-  //   }
-  // }
-  //   开启深度监视
-  watch:{
-    todos:{
-      deep: true,
-      handler(value){
-        localStorage.setItem('todos', JSON.stringify(value))
-      }
-    }
-  }
 };
 </script>
 

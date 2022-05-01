@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage</title>
+</head>
+<body>
+    <!-- 浏览器关闭也不会消失
+        - 主动清空缓存
+        - 按钮清除
+    -->
+    <h2>
+        LocalStorage
+    </h2>
+
+    <button onclick="saveData()">保存一个数据</button>
+    <button onclick="getData()">获取一个数据</button>
+    <button onclick="deleteData()">删除一个数据</button>
+    <button onclick="clearData()">清空数据</button>
+
+    <script>
+        function saveData(){
+            window.localStorage.setItem('msg', 'hello!!!')
+            let p = {name: 'llf', age: 20}
+            localStorage.setItem('person', JSON.stringify(p))
+        }
+
+        function getData(){
+            let msg = localStorage.getItem('msg')
+            console.log('msg',msg)
+
+            let person = localStorage.getItem('person')
+            console.log('person', person)
+        }
+
+        function deleteData(){
+            localStorage.removeItem('msg')
+            console.log('msg删除成功')
+            // localStorage.clear()
+        }
+
+        function clearData(){
+            localStorage.clear()
+        }
+    </script>
+</body>
+
+</html>
