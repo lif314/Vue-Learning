@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分析生命周期</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<!--  
+    生命周期函数(钩子)
+        - 生命周期中的this是vm或者实例化对象
+    生命周期：https://www.bilibili.com/video/BV1Zy4y1K7SH?p=49&spm_id_from=pageDriver
+        - 
+ -->
+<body>
+    <div id="root">
+        <h2>当前n值是: {{n}}</h2>
+        <button @click="add">n++</button>
+        <button @click="destroy">销毁vm</button>
+    </div>
+        
+    <script>
+        Vue.config.productionTip = false
+
+        const vm =  new Vue({
+            el: "#root",
+            // 内部不能使用template作为根元素
+            // template: `
+            // <div id="root">
+            //     <h2>当前n值是: {{n}}</h2>
+            //     <button @click="add">n++</button>
+            // </div>`,
+            data:{
+                n: 1,
+            },
+            methods:{
+                add(){
+                    this.n++
+                },
+                destroy(){
+                    console.log('Bye')
+                    this.$destroy();
+                }
+            },
+            beforeCreate() {
+                //无法通过vm访问到data中的数据、methods中的方法
+                console.log("beforeCreate");
+                console.log(this) // 没有vm._data
+                //debugger;  // 断点
+            },
+            // 操作：数据检测 数据代理
+            created() {
+                // 可以通过vm访问到data中的数据，methods中的方法 
+                console.log('created')
+                console.log(this)
+                // debugger;  // 断点
+            },
+            // 解析模板，生成虚拟DOM，页面还不能显示页面 
+            beforeMount() {
+                // 1、页面显示未经Vue编译的DOM
+                // 2、所有对DOM的操作，最终都不奏效
+                console.log('beforeMount')
+                console.log(this)
+                // debugger;  // 断点
+            },
+            // 把真实DOM放在页面，完成模板解析
+            mounted() {
+                // 1、页面中显示的经过Vue编译的页面
+                // 2、对DOM的操作均有效【尽可能避免】
+                console.log('mounted')
+                console.log(this, this.$el)
+                // debugger;  // 断点
+            },
+            // 挂在结束，初始化结束
+            // 监听改变数据
+            beforeUpdate() {
+                // 数据是新的，但页面没有更新
+                console.log('beforeUpdate')
+                console.log(this)
+                // debugger;  // 断点
+            },
+            // 虚拟DOM重新渲染， 存在比较Diff
+            updated() {
+                // 模型到视图的更新：数据是新的，页面也是新的
+                console.log('updated')
+                console.log(this)
+                // debugger;  // 断点
+            },
+            // vm.$destroy() 销毁vm。
+            // 完全销毁了vm，但页面还存在，DOM还在，只是没有vm来管理
+            // 解绑了所有的自定义的事件监听器 
+            beforeDestroy() {
+                // vm中_data，methods.指令等，都处于可用状态
+                // 但对数据进行的操作不会再进行更新
+                console.log('beforeDestroy')
+                // console.log(this._data)
+                console.log(this)
+                // debugger;  // 断点
+            },
+            destroyed() {
+                // 完全消除
+                console.log('destroyed')
+                console.log(this)
+                // debugger;  // 断点
+            },
+            
+        })
+    </script>
+</body>
+</html>

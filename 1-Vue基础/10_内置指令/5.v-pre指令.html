@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-once指令</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <!-- v-pre 不去解析模板，可以在静态资源上加跳过编译 -->
+        <h2 v-pre>v-pre指令n</h2>
+        <h2 v-pre>v-pre指令n: {{n}}</h2>
+        <button @click="add">n++</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                n: 1,
+            },
+            methods:{
+                add(){
+                    this.n++
+                }
+            }
+        })
+    </script>
+</body>
+</html>

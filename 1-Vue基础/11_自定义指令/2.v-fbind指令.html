@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-fbind</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<!-- v-fbind: 与v-bind类似，但默认获取焦点 -->
+<body>
+    <div id="root">
+        <h2>当前的n值是： <span v-text='n'> </span></h2>
+        <!-- 自定义big指令 -->
+        <h2>放大10倍的n值是： <span v-big='n'> </span></h2>
+        <button @click="add">n++</button>
+
+        <hr/>
+        <!-- autofocus -->
+        <input type="text" v-fbind="n">
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                n:1
+            },
+            methods:{
+                add(){
+                    this.n++
+                }
+            },
+            // 监视对象
+            directives:{
+                // big:{
+                //     k:v,
+                //     k:v
+                // }
+                // 自定义v-big指令：就是一个函数，不是使用返回值
+                big(element,binding){
+                    // 元素，绑定关系
+                    // 何时调用？ 指令所在的模板重新解析时会调用
+                    console.log(element, binding)
+                    element.innerText = binding.value * 10
+                },
+                // 1、指令与元素绑定进行调用
+                // 2、Vue解析模板，出现在页面上
+                // fbind(element, binding){
+                //     element.value = binding.value
+                //     // 默认获取焦点
+                //     // 需要在页面出现后再调用 -- 函数中无法实现
+                //     // element.focus()
+                // },
+                
+                // 钩子：不同时刻调用
+                fbind:{
+                    bind(element, binding){
+                        // 指令与元素成功绑定时调用
+                        console.log('bind')
+                        element.value = binding.value
+                    },
+                    inserted(element, binding){
+                        //指令所在元素插入页面时调用
+                        console.log('bininsertedd')
+                        element.focus()
+                    },
+                    update(element, binding){
+                        // 指令所在模板重新解析时
+                        element.value = binding.value
+                        // element.focus()
+                        console.log('updated')
+                      
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+</html>

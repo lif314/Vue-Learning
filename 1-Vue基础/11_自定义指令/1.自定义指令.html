@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定样式</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<body>
+    <div id="root">
+        <h2>当前的n值是： <span v-text='n'> </span></h2>
+        <!-- 自定义big指令 -->
+        <!--
+            1、多个单词使用-分割  命名
+                - 在directives中使用'v-big-number'
+            2、自定义的this：都是window,
+                - 所有指令都是window，因为对元素进行操作
+            3、全局指令
+            Vue.directive('big',function(element, binding){
+
+            })
+         -->
+        <h2>放大10倍的n值是： <span v-big='n'> </span></h2>
+        <button @click="add">n++</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data:{
+                n:1
+            },
+            methods:{
+                add(){
+                    this.n++
+                }
+            },
+            // 监视对象
+            directives:{
+                // big:{
+                //     k:v,
+                //     k:v
+                // }
+                // 自定义v-big指令：就是一个函数，不是使用返回值
+                big(element,binding){
+                    console.log(this) // window
+                    // 元素，绑定关系
+                    // 何时调用？ 指令所在的模板重新解析时会调用
+                    console.log(element, binding)
+                    element.innerText = binding.value * 10
+                }
+            }
+        })
+    </script>
+</body>
+</html>

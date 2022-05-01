@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-cloak指令</title>
+
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- v-cloak  网速过慢时，防止未经解析的模显示在页面上 -->
+            <h2 v-cloak>{{name}}</h2>
+    </div>
+
+    <!-- 顺序代码： 可能会阻塞 -->
+    <script src="../js/vue.js"></script>
+</body>
+<script>
+    Vue.config.productionTip = false
+
+    new Vue({
+        el: "#root",
+        data:{
+            name: 'JS阻塞'
+        },
+        methods:{
+
+        }
+    })
+</script>
+
+</html>

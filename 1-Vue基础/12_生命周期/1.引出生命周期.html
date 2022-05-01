@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命周期</title>
+    <script src="../js/vue.js">
+    </script>
+</head>
+<!--  
+    生命周期函数(钩子)
+        - 生命周期中的this是vm或者实例化对象
+ -->
+<body>
+    <div id="root">
+        <h2 :style="{opacity:opacity}">生命周期</h2>
+        <!-- 谈笑间 几千次  重复开启计时器 -->
+        <!-- {{change()}} -->
+    </div>
+        
+    <script>
+        Vue.config.productionTip = false
+
+        const vm =  new Vue({
+            el: "#root",
+            data:{
+                opacity: 1,
+            },
+            methods:{
+                // 在methods中无法完成
+                // change(){
+                //     setInterval(() => {
+                //         this.opacity -= 0.01
+                //         if(this.opacity <= 0)
+                //             this.opacity = 1
+                //     }, 16);
+                // }
+            },
+            // 挂载完毕：把真实DOM放在页面，完成模板解析
+            mounted() {
+                // 箭头函数，向外找 this
+                setInterval(() => {
+                this.opacity -= 0.01
+                if(this.opacity <= 0)
+                    this.opacity = 1
+                }, 16);
+            },
+        })
+
+        // 通过外部定时器实现（不推荐）
+        // setInterval(() => {
+        //     vm.opacity -= 0.01
+        //     if(vm.opacity <= 0)
+        //         vm.opacity = 1
+        // }, 16);
+    </script>
+</body>
+</html>
