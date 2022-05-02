@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-// 引入插件
-import vueResource from 'vue-resource'
-// 使用插件
-Vue.use(vueResource)  // 绑定在vm和vc上
 
 Vue.config.productionTip = false
 
