@@ -7,17 +7,6 @@
         :checked="todo.done"
         @change="handleCheck(todo.id)"
       />
-      <!-- 
-                下面使用v-model：不进行传参也能改变App上的todo状态
-                为什么呢？
-                v-model与布尔值绑定，可以直接绑定box的状态
-                v-model: 修改todo.done, todo的地址没有更改
-                不推荐：不推荐v-model改变props中传进来的参数
-             -->
-      <!-- <input
-        type="checkbox"
-        v-model="todo.done"
-      /> -->
       <span>{{ todo.title }}</span>
     </label>
     <button class="btn btn-danger" @click="deleteTodo(todo.id)">删除</button>
@@ -28,22 +17,19 @@
 export default {
   name: "MyItem",
   //   接受一个对象值
-  props: ["todo", "checkTodo", 'deleteItemTodo'],
+  props: ["todo"],
   methods: {
     // 删除
     deleteTodo(id) {
-        if(confirm('确定删除吗?')){
-        //   console.log(id);
-        // 通知App
-         this.deleteItemTodo(id)
-        }
+      if (confirm("确定删除吗?")) {
+        // 触发$bus上的事件
+        this.$bus.$emit("deleteTodo", id);
+      }
     },
     //   change事件  取消勾选
     handleCheck(id) {
-      this.checkTodo(id);
-      //console.log(id)
-      // 通知App组件更改done值
-      // Item --> List -- > App
+      // 触发事件总线
+      this.$bus.$emit("checkTodo", id);
     },
   },
 };

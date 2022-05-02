@@ -6,10 +6,9 @@
         <div class="todo-wrap">
           <!-- 通过props父组件给子组件传递函数的方式：子组件给父组件传递消息  -->
           <my-header :receive="receiveDataFromHeader" />
+          <!-- 使用全局事件总线 $bus Item和App-->
           <my-list
             :todos="todos"
-            :checkTodo="checkTodo"
-            :deleteListTodo="deleteTodo"
           />
           <!-- 通过父组件给子组件绑定自定义事件：子组件给父组件传递消息 -->
           <!-- v-on/@ 或者 ref -->
@@ -53,6 +52,14 @@ export default {
     //     });
     //   }
     // });
+    // 使用全局事件中线与Item之间传递数据
+    this.$bus.$on('checkTodo', this.checkTodo)
+    this.$bus.$on('deleteTodo', this.deleteTodo)
+  },
+  beforeDestroy() {
+      // 清除$bus上的事件
+      this.$bus.$off('checkTodo')
+      this.$bus.$off('deleteTodo')
   },
   methods: {
     // 全部删除  // 删除所有已经完成的todo
@@ -69,13 +76,19 @@ export default {
         todo.done = done;
       });
     },
+    // 使用全局事件总线与Item传递数据
     // 取消勾选todo
-    // 逐层传递消息
     checkTodo(id) {
       this.todos.forEach((todo) => {
         if (todo.id === id) {
           todo.done = !todo.done;
         }
+      });
+    },
+    // 删除一个todo
+    deleteTodo(id) {
+      this.todos = this.todos.filter((todo) => {
+        return todo.id !== id;
       });
     },
     // 将该函数传给MyHeader，调用该函数获取数据
@@ -84,19 +97,7 @@ export default {
       // 将该数据加在todos中
       this.todos.unshift(data);
     },
-    // 删除一个todo
-    deleteTodo(id) {
-      this.todos = this.todos.filter((todo) => {
-        return todo.id !== id;
-      });
-    },
   },
-  // 监视todos  webStorage
-  // watch:{
-  //   todos(value){
-  //       localStorage.setItem('todos', JSON.stringify(value))
-  //   }
-  // }
   //   开启深度监视
   watch: {
     todos: {

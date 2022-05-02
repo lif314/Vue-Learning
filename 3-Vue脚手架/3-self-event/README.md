@@ -34,7 +34,34 @@
 - X组件的特性：
     - 所有组件可以看到X组件 `Vue.prototype.x = {x:12, y: 232}`
     - X组件可以调用$on, $off,$emit
-    - 
+    - $bus
 
-
-
+- 使用全局事件总线
+    - 安装事件总线
+    ```vue
+    new Vue({
+        ....
+        beforeCreate(){
+            Vue.prototype.$bus = this ///安装全局事件总线,this就是当前的vue
+        }
+    })
+    ```
+    - 使用事件总线
+    1.接受数据：A组件想要接受数据，则在A组件中给$bus绑定自定义事件，事件的回调就在A组件自身
+    ```vue
+    methods(){
+        demo(data){....}
+    }
+    ....
+    mounted(){
+        this.$bus.$on('xxx', this.demo) // 给$bus绑定自定义事件
+    }
+    ```
+    2. 提供数据：触发事件发送数据
+    ```vue
+    this.$bus.$emit('xxxx', data)
+    ```
+    - 最好在beforeDestroy钩子中，使用$off解绑当前组件中使用的事件
+    ```vue
+    this.$bus.$off('xxxx')
+    ``` 

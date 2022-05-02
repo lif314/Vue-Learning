@@ -4,9 +4,7 @@
     <my-item 
         v-for="todoObj in todos" 
         :key="todoObj.id" 
-        :todo="todoObj" 
-        :checkTodo="checkTodo"
-        :deleteItemTodo='deleteListTodo'
+        :todo="todoObj"
         />
   </ul>
 </template>
@@ -19,8 +17,7 @@ export default {
   components: {
     MyItem,
   },
-  // checkTodo进一步传递给item
-    props:['checkTodo','todos', 'deleteListTodo'],
+    props:['todos'],
 };
 </script>
 

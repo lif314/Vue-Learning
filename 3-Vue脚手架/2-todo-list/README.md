@@ -23,3 +23,35 @@
 - 使用v-mode时要切记：v-mode绑定的值不能是props传过来的值，因props是不可以修改的！
 
 - props传过来的若是对象类型的值，修改对象中的属性时Vue不会报错，但不推荐这样做。
+
+## 事件总线
+
+- 使用全局事件总线
+    - 安装事件总线
+    ```vue
+    new Vue({
+        ....
+        beforeCreate(){
+            Vue.prototype.$bus = this ///安装全局事件总线,this就是当前的vue
+        }
+    })
+    ```
+    - 使用事件总线
+    1.接受数据：A组件想要接受数据，则在A组件中给$bus绑定自定义事件，事件的回调就在A组件自身
+    ```vue
+    methods(){
+        demo(data){....}
+    }
+    ....
+    mounted(){
+        this.$bus.$on('xxx', this.demo) // 给$bus绑定自定义事件
+    }
+    ```
+    2. 提供数据：触发事件发送数据
+    ```vue
+    this.$bus.$emit('xxxx', data)
+    ```
+    - 最好在beforeDestroy钩子中，使用$off解绑当前组件中使用的事件
+    ```vue
+    this.$bus.$off('xxxx')
+    ``` 
