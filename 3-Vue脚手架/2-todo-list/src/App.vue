@@ -150,6 +150,18 @@ body {
   background-color: #bd362f;
 }
 
+.btn-edit {
+  color: #fff;
+  background-color: #27bd54;
+  border: 1px solid #16db62;
+  margin-right: 5px;
+}
+
+.btn-edit:hover {
+  color: #fff;
+  background-color: #2ade1a;
+}
+
 .btn:focus {
   outline: none;
 }

@@ -10,6 +10,7 @@
       <span>{{ todo.title }}</span>
     </label>
     <button class="btn btn-danger" @click="deleteTodo(todo.id)">删除</button>
+    <button class="btn btn-edit" @click="editTodo(todo.id)">编辑</button>
   </li>
 </template>
 
@@ -25,6 +26,9 @@ export default {
         // 触发$bus上的事件
         this.$bus.$emit("deleteTodo", id);
       }
+    },
+    editTodo(id){
+        console.log('修改todo', id)
     },
     //   change事件  取消勾选
     handleCheck(id) {
