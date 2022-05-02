@@ -4,6 +4,7 @@
     <h1>{{msg}}</h1>
     <h2>名称: {{ name }}</h2>
     <h2>地址: {{ address }}</h2>
+    <button @click="sendSchoolName">给App发送学校名字</button> 
   </div>
 </template>
 
@@ -18,12 +19,19 @@ export default {
       address: 'shanghai'
     };
   },
-    mounted() {
-    console.log("School", this.x)
+  props:['getSchoolName'],
+  methods: {
+    sendSchoolName(){
+      this.getSchoolName(this.name)
+    }
   },
+
 };
+
 // export default school  // 默认暴露 import ??? from xxx
 </script>
+
+
 <style scoped>
 /* 
 - 如果没有scoped, 所有的样式最终都会汇总在一起
