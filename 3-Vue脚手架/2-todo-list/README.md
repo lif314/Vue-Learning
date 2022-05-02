@@ -66,3 +66,8 @@
         this.$refs.inputTitle.focus()
       })
 ```
+
+
+# 动画
+- 还是用库比较香！！！
+- animate.css
