@@ -65,3 +65,43 @@
     ```vue
     this.$bus.$off('xxxx')
     ``` 
+
+
+# 消息订阅与发布 pubsub
+- 任意组件进行通信
+
+- 安装
+```shell
+npm i pubsub-js
+```
+
+- 引入
+```js
+import pubsub from 'pubsub-js'
+```
+
+- 订阅消息
+```js
+mounted() {
+      // 订阅消息
+      // 消息主题   回调函数(消息名，数据)
+      this.pubId = pubsub.subscribe('hello', (msgName,data)=>{
+          // console.log(this)  // this undefined  使用箭头函数才是vc
+          console.log('有人发布消息，接受到消息：', data)
+      })
+  },
+  beforeDestroy() {
+    // 每个消息都有唯一的id,需要通过id取消订阅
+    pubsub.unsubscribe(this.pubId)
+  },
+```
+
+- 发布消息
+```js
+methods: {
+    sendStudentName() {
+      // 发布消息
+      pubsub.publish('hello', this.name)
+    },
+  },
+```
