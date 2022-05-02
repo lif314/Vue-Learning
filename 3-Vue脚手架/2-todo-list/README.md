@@ -55,3 +55,14 @@
     ```vue
     this.$bus.$off('xxxx')
     ``` 
+
+
+# this.$nextTick
+```js
+      // nextTick的函数会在DOM更新之后再执行
+      this.$nextTick(function(){
+        // 当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTicl中
+        // 指定的回调函数中执行
+        this.$refs.inputTitle.focus()
+      })
+```

@@ -7,9 +7,7 @@
           <!-- 通过props父组件给子组件传递函数的方式：子组件给父组件传递消息  -->
           <my-header :receive="receiveDataFromHeader" />
           <!-- 使用全局事件总线 $bus Item和App-->
-          <my-list
-            :todos="todos"
-          />
+          <my-list :todos="todos" />
           <!-- 通过父组件给子组件绑定自定义事件：子组件给父组件传递消息 -->
           <!-- v-on/@ 或者 ref -->
           <my-footer :todos="todos" @checkAllTodo="checkAllTodo" ref="footer" />
@@ -43,7 +41,7 @@ export default {
   mounted() {
     // 使用ref绑定自定义事件 -- clearAll
     // 事件名， 回调函数
-    this.$refs.footer.$on('clearAll', this.clearAll);
+    this.$refs.footer.$on("clearAll", this.clearAll);
     //使用箭头函数
     // this.$refs.footer.$on("clearAll", () => {
     //   if (confirm("确定删除完成的todo吗?")) {
@@ -53,13 +51,16 @@ export default {
     //   }
     // });
     // 使用全局事件中线与Item之间传递数据
-    this.$bus.$on('checkTodo', this.checkTodo)
-    this.$bus.$on('deleteTodo', this.deleteTodo)
+    this.$bus.$on("checkTodo", this.checkTodo);
+    this.$bus.$on("deleteTodo", this.deleteTodo);
+    // 更新toto
+    this.$bus.$on("updateTodo", this.updateTodo);
   },
   beforeDestroy() {
-      // 清除$bus上的事件
-      this.$bus.$off('checkTodo')
-      this.$bus.$off('deleteTodo')
+    // 清除$bus上的事件
+    this.$bus.$off("checkTodo");
+    this.$bus.$off("deleteTodo");
+    this.$bus.$off("updateTodo");
   },
   methods: {
     // 全部删除  // 删除所有已经完成的todo
@@ -82,6 +83,14 @@ export default {
       this.todos.forEach((todo) => {
         if (todo.id === id) {
           todo.done = !todo.done;
+        }
+      });
+    },
+    // 更新一个todo
+    updateTodo(id, title) {
+      this.todos.forEach((todo) => {
+        if (todo.id === id) {
+          todo.title = title;
         }
       });
     },
@@ -111,6 +120,8 @@ export default {
 </script>
 
 <style>
+/* App 中全局都可以使用的样式 */
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

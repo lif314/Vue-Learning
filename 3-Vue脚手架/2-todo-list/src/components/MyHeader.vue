@@ -29,6 +29,7 @@ export default {
         id: nanoid(),
         title: event.target.value,
         done: false,
+        isEdit: false
       };
 
       // 调用父组件传递的函数以传递todo对象数据
