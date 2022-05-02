@@ -1,24 +1,12 @@
-# 5-slot
+# slot
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 默认插槽
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 具名插槽
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## 作用域插槽
+- 也可以使用名字 name="demo"
+- 获取插槽中的数据
