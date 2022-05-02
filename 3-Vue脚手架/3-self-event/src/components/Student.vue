@@ -5,6 +5,7 @@
     <h2>名字: {{ name }}</h2>
     <h2>年龄: {{ age }}</h2>
     <button @click="sendStudentName">给App发送学生姓名</button>
+    <button @click="unbind">解绑自定义事件selfevent</button>
   </div>
 </template>
 
@@ -20,6 +21,12 @@ export default {
     };
   },
   methods: {
+    unbind(){
+      // 解绑事件
+      this.$off('selfevent')   // 只能解绑一个自定义事件
+      // this.$off(['selfevent', 'demo'])   // 解绑多个自定义事件 使用[]
+      // this.$off()   // 解绑所有自定义事件
+    },
     sendStudentName() {
       // 可以传递多个参数
        this.$emit('selfevent', this.name, 1, 2,3);
