@@ -1,24 +1,8 @@
-# 1-vuex-demo
+# vuex
+- 集中式状态(数据)管理的一个Vue插件，对Vue中多个组件的共享状态进行集中式管理(读/写)，也可以提供组件通信
 
-## Project setup
-```
-npm install
-```
+- 多个组件需要使用一个数据，就放在vuex中，对于其它的，依然使用以前的方法进行数据传递
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 啥时候使用
+- 多个依赖同一状态(数据)
+- 多个组件需要变更同一状态(数据)
