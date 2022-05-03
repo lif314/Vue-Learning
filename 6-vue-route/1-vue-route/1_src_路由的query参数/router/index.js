@@ -16,7 +16,6 @@ Vue.use(VueRouter)
 export default new VueRouter({
     routes:[
         {
-            name: 'guanyu', // 路由命名
             path: '/about',
             component: About
         },
@@ -25,7 +24,6 @@ export default new VueRouter({
             component: Home,
             children:[
                 {
-                    name: 'news',
                     // path: '/home/news', 
                     path: 'news', // 不用写/
                     component: News
@@ -35,7 +33,6 @@ export default new VueRouter({
                     component: Message,
                     children:[
                         {
-                            name: 'xiangqing',
                             path:'detail',
                             component: Detail
                         }

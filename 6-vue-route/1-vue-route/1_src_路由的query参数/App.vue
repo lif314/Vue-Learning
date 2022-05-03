@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <Banner />
+      <Banner/>
     </div>
     <div class="row">
       <div class="col-xs-2 col-xs-offset-2">
@@ -11,20 +11,13 @@
           <a class="list-group-item active" href="./home.html">Home</a> -->
 
           <!-- vue-router实现页面跳转 -->
-          <router-link class="list-group-item" active-class="active" to="/home"
-            >Home</router-link
-          >
-          <!--           
+          <router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
+          
           <router-link
           class="list-group-item" 
           active-class="active" 
           to="/about"
-            >About</router-link> -->
-
-          <!-- 使用路由名字:这样可以隐藏路由信息 -->
-          <router-link class="list-group-item" active-class="active" :to="{name:'guanyu'}"
-            >About</router-link
-          >
+            >About</router-link>
         </div>
       </div>
       <div class="col-xs-6">
@@ -40,12 +33,12 @@
 </template>
 
 <script>
-import Banner from "./components/Banner";
+import Banner from './components/Banner';
 
 export default {
   name: "App",
   components: {
-    Banner,
+    Banner
   },
 };
 </script>
