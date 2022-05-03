@@ -7,6 +7,7 @@ import Home from '../pages/Home'
 import About from '../pages/About'
 import News from '../pages/News.vue' 
 import Message from '../pages/Message.vue' 
+import Detail from '../pages/Detail.vue'
 
 // 这个应该先引入
 Vue.use(VueRouter)
@@ -23,13 +24,19 @@ export default new VueRouter({
             component: Home,
             children:[
                 {
-                    // path: '/home/news',
-                    path: 'news',
+                    // path: '/home/news', 
+                    path: 'news', // 不用写/
                     component: News
                 },
                 {
-                    path: '/home/message',
-                    component: Message
+                    path: '/home/message', // 这个也没有问题
+                    component: Message,
+                    children:[
+                        {
+                            path:'detail',
+                            component: Detail
+                        }
+                    ]
                 }
             ] 
         },
