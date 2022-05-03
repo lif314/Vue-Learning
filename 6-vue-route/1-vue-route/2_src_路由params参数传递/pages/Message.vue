@@ -17,7 +17,7 @@
         }">{{msg.title}}</router-link> -->
 
 <!-- 使用路由名字 -->
-        <router-link
+        <!-- <router-link
           :to="{
             name: 'xiangqing',
             query: {
@@ -26,19 +26,19 @@
             },
           }"
           >{{ msg.title }}</router-link
-        >
+        > -->
 
        <!-- 路由跳转携带params参数, to的字符串写法 -->
         <!-- <router-link :to="`/home/message/detail/${msg.id}/${msg.title}`">{{msg.title}}</router-link> -->
 
          <!-- 路由跳转携带params参数, to的对象写法 -->
-         <!-- <router-link :to="{
+         <router-link :to="{
            name:'xiangqing',  // 使用params必须使用name,不能使用path
            params:{
              id: msg.id,
              title: msg.title
            }
-           }">{{msg.title}}</router-link> -->
+           }">{{msg.title}}</router-link>
 
       </li>
     </ul>
