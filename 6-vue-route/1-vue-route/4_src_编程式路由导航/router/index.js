@@ -13,7 +13,7 @@ import Detail from '../pages/Detail.vue'
 Vue.use(VueRouter)
 
 // 创建并暴露路由器
-const router =  new VueRouter({
+export default new VueRouter({
     routes:[
         {
             name: 'guanyu', // 路由命名
@@ -21,7 +21,6 @@ const router =  new VueRouter({
             component: About
         },
         {
-            name:'zhuye',
             path: '/home',
             component: Home,
             children:[
@@ -72,23 +71,3 @@ const router =  new VueRouter({
     ]
 })
 
-// 添加路由守卫: 全局前置路由守卫
-// 每次路由切换之前调用
-router.beforeEach((to, from, next)=>{
-    // console.log('切换路由调用to', to)
-    // console.log('切换路由调用from', from)
-     // Home和About随便看，其余需要权限认证
-    //  to.name
-    if(to.path == '/home/news' | to.path === '/home/message'){
-        if(localStorage.getItem('school') === 'llf'){
-            next()
-            // next放行
-       }else{
-           alert('school错误')
-       }
-    }else{
-        next()
-    }
-})
-
-export default router

@@ -29,11 +29,7 @@
           >
         </li>
       </ul>
-      <!-- 缓存的路由组件: 缓存数据  include是组件名，表示需要缓存的组件 -->
-      <!-- 多个使用数组 -->
-      <keep-alive :include="['News']">
-        <router-view></router-view>
-      </keep-alive>
+      <router-view></router-view>
     </div>
   </div>
 </template>
