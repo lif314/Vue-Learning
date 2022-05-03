@@ -93,3 +93,67 @@ const state = {
     sum: 0, // 当前的和
 }
 ```
+
+**使用原则**
+- 在actions中的context可使用链式的dispatch
+- 在actions中书写业务逻辑
+- 在mutations中进行真正改变数据(state)的操作
+
+
+### getters 相当于计算属性
+- 逻辑复杂时使用
+- 配置
+```js
+// 配置getters: 类似计算属性  用于将state中的数据进行加工
+const getters = {
+    bigSum(state){
+        return state.sum * 10
+    }
+}
+```
+
+- 使用
+```js
+{{$store.getters.bigSum}}
+```
+
+### mapState\mapGetters
+```js
+    // 使用mapState对象进行代码生成 计算属性  从state中读取数据【对象写法】
+    // ... 解析赋值
+    // ...mapState({sum: 'sum', school: 'school', 'subject': 'subject'}),
+    
+    // 使用mapState生成计算属性  数组简写
+    // 一个属性两个用途
+    ...mapState(['sum', 'school', 'subject']),
+    
+    // Getters
+    // 对象写法
+    // ...mapGetters({bigSum:'bigSum'}),
+    // 数组写法
+    ...mapGetters(['bigSum']),
+    // bigSum() {
+    //   return this.$store.getters.bigSum;
+    // },
+```
+
+
+### mapMutations和mapActions
+- 需要在模板中传递参数
+- 传递参数
+```vue
+    <button @click="increment(n)">+</button>
+    <button @click="decrement(n)">-</button>
+``` 
+- 调用
+```js
+// commit 优化
+    // 方法会调用mutations 对象写法  调用时传递参数
+    ...mapMutations({increment:'JIA',decrement:'JIAN'}),
+    // 写的一样的时候可以使用数组进行简写
+    // ...mapMutations([JIA:'JIAN']),
+    
+    // dispatch优化 
+    ...mapActions({incrementOdd:'jiaodd', incrementWait:'jiawait'}),
+   // 相同的时候使用数组简写
+```
