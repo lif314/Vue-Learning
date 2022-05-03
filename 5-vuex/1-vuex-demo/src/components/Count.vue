@@ -29,65 +29,32 @@ export default {
       n: 1, // 用户选择的数字
     };
   },
-  mounted() {
-    // const x = mapState({'sum':'sum'})  // 代码生成
-    // console.log('mapState', x)
-    // console.log("Count:", this); // $store
-  },
   computed: {
     // 使用mapState对象进行代码生成 计算属性  从state中读取数据【对象写法】
     // ... 解析赋值
     // ...mapState({sum: 'sum', school: 'school', 'subject': 'subject'}),
-    
     // 使用mapState生成计算属性  数组简写
     // 一个属性两个用途
-    ...mapState(['sum', 'school', 'subject', 'personList']),
+    // ...mapState(['sum', 'school', 'subject', 'personList']),
+    ...mapState('countAbout',['sum', 'school', 'subject']),
+    ...mapState( 'personAbout',['personList']),
     
     // Getters
     // 对象写法
-    // ...mapGetters({bigSum:'bigSum'}),
+    ...mapGetters('countAbout', {bigSum:'bigSum'}),
     //
-    ...mapGetters(['bigSum']),
+    // ...mapGetters(['bigSum']),
   },
   methods: {
-    // increment() {
-    //   // 发送给actions
-    //   // this.$store.dispatch('jia', this.n)
-    //   //如果Actions中没有业务逻辑，则直接可以发送给mutations
-    //   this.$store.commit("JIA", this.n);
-    //   // this.$store.sum += this.n;
-    // },
-    // decrement() {
-    //   // 发送给actions
-    //   //  this.$store.dispatch('jian', this.n)
-    //   //如果Actions中没有业务逻辑，则直接可以发送给mutations
-    //   this.$store.commit("JIAN", this.n);
-    //   // this.$store.sum -= this.n;
-    // },
     // commit 优化
     // 方法会调用mutations 对象写法  调用时传递参数
-    ...mapMutations({increment:'JIA',decrement:'JIAN'}),
+    ...mapMutations('countAbout',{increment:'JIA',decrement:'JIAN'}),
     // 写的一样的时候可以使用数组进行简写
     // ...mapMutations([JIA:'JIAN']),
     
     // dispatch优化 
-    ...mapActions({incrementOdd:'jiaodd', incrementWait:'jiawait'}),
+    ...mapActions('countAbout', {incrementOdd:'jiaodd', incrementWait:'jiawait'}),
    // 相同的时候使用数组简写
-   // incrementOdd() {
-    //   // if(this.$store.state.sum % 2 ==1){
-    //   // 只负责通知actions处理
-    //   this.$store.dispatch("jiaodd", this.n);
-    //   // }
-    //   // if (this.sum % 2 == 1) {
-    //   // this.sum += this.n;
-    //   // }
-    // },
-    // incrementWait() {
-    //   // setTimeout(() => {
-    //   this.$store.dispatch("jiawait", this.n);
-    //   // this.sum += this.n;
-    //   // }, 500);
-    // },
   },
 };
 </script>

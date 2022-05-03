@@ -157,3 +157,11 @@ const getters = {
     ...mapActions({incrementOdd:'jiaodd', incrementWait:'jiawait'}),
    // 相同的时候使用数组简写
 ```
+
+
+### 组件通信 vuex -- 数据共享
+
+
+### vuex模块化编程与命名空间
+- 模块化
+- 写在不同文件中

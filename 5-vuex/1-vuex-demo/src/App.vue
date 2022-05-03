@@ -2,7 +2,7 @@
   <div>
     <Count/>
     <hr/>
-    <person/>
+    <Person/>
   </div>
 </template>
 
