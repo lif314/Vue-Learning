@@ -1,18 +1,21 @@
 <template>
   <div>
-    <Count/>
+    <Count />
   </div>
 </template>
 
 <script>
-import Count from './components/Count.vue'
+import Count from "./components/Count.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Count
-  }
-}
+    Count,
+  },
+  mounted() {
+    console.log("App:", this);  // $store
+  },
+};
 </script>
 
 <style>
