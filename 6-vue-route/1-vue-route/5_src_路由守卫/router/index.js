@@ -14,7 +14,6 @@ Vue.use(VueRouter)
 
 // 创建并暴露路由器
 const router =  new VueRouter({
-    mode: 'history', // 更改路由模式，默认是hash
     routes:[
         {
             name: 'guanyu', // 路由命名

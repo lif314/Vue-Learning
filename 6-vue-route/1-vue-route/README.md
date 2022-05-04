@@ -32,3 +32,26 @@ npm i vue-router@3
 
 ## 路由守卫(权限)
 - 在路由规则时进行权限限制
+
+- 全局路由守卫
+    - 全局前置路由守卫
+    - 全局后置路由守卫
+
+- 独享路由守卫
+
+
+## history模式与hash模式
+- 路由中的hash值：从/#/开始的所有内容。不会随着HTTP请求发给服务器。只是作为前端路由跳转显示
+- 默认开始hash工作模式,更改为history模式，没有/#/
+- hash模式兼容性更好
+
+
+**项目上线**
+
+- 打包：html
+```
+npm run build
+```
+
+- history模式解决404问题：后端人员进行请求过滤
+    - Node.js解决方案：connect-history-api-fallback
